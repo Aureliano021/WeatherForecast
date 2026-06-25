@@ -13,7 +13,17 @@ import java.util.stream.Collectors;
 
 public class MeteoService {
     public ResultsWeather searchWeather(String city) throws IOException {
-        HttpURLConnection connection = getHttpURLConnection(city);
+
+
+        GeoService geoService = new GeoService();
+        ResultsB resultsB = geoService.getCoordinates(city);
+        this.cityFormatted = resultsB.getName();
+        double latitude = resultsB.getLatitude();
+        double longitude = resultsB.getLongitude();
+        String http = "https://api.open-meteo.com/v1/forecast?latitude="+ latitude +"&longitude="+ longitude +"&hourly=precipitation_probability,temperature_2m&models=best_match&current=temperature_2m,rain&timezone=America%2FSao_Paulo&forecast_days=1";
+        URL url = new URL(http);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
         if  (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
             throw new IOException("HTTP error code : " + connection.getResponseCode());
         }
@@ -25,13 +35,9 @@ public class MeteoService {
 
     }
 
-    private static HttpURLConnection getHttpURLConnection(String city) throws IOException {
-        GeoService geoService = new GeoService();
-        ResultsB resultsB = geoService.getCoordinates(city);
-        double latitude = resultsB.getLatitude();
-        double longitude = resultsB.getLongitude();
-        String http = "https://api.open-meteo.com/v1/forecast?latitude="+ latitude +"&longitude="+ longitude +"&hourly=precipitation_probability,temperature_2m&models=best_match&current=temperature_2m,rain&timezone=America%2FSao_Paulo&forecast_days=1";
-        URL url = new URL(http);
-        return (HttpURLConnection) url.openConnection();
+    String cityFormatted;
+
+    public String getCityFormatted() {
+        return cityFormatted;
     }
 }

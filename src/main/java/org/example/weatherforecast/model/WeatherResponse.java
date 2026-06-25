@@ -13,7 +13,7 @@ public class WeatherResponse {
     private float rainProbability;
 
     public WeatherResponse(String city, ResultsWeather results) throws IOException {
-        this.city = new GeoService().getCoordinates(city).getName();
+        this.city = city;
         this.temperature = results.getCurrent().getTemperature_2m();
         this.actualRain = results.getCurrent().getRain();
         this.rainProbability = (float) Math.round(results.getHourly().getRainProbability().stream()

@@ -11,8 +11,7 @@ public class WeatherService {
     public WeatherResponse getPrevisao(String city) throws IOException {
             MeteoService meteoService = new MeteoService();
             ResultsWeather weather = meteoService.searchWeather(city);
-            return new WeatherResponse(city, weather);
+            String cityFormatted = meteoService.getCityFormatted();
+            return new WeatherResponse(cityFormatted, weather);
     }
-
-
 }

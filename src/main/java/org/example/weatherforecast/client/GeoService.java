@@ -1,6 +1,7 @@
 package org.example.weatherforecast.client;
 
 import com.google.gson.Gson;
+import org.example.weatherforecast.exeptions.CityNotFoundException;
 import org.example.weatherforecast.model.open_meteo_api.Results;
 import org.example.weatherforecast.model.open_meteo_api.ResultsB;
 
@@ -26,7 +27,12 @@ public class GeoService {
 
         Gson gson = new Gson();
         Results results = gson.fromJson(jsonString, Results.class);
-        return results.getResults().get(0);
+
+        if (results.getResults() == null || results.getResults().isEmpty()) {
+            throw new CityNotFoundException("No cities found");
+        } else {
+            return results.getResults().get(0);
+        }
     }
 
 }
