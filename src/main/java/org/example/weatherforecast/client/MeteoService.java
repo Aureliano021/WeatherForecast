@@ -3,6 +3,7 @@ package org.example.weatherforecast.client;
 import com.google.gson.Gson;
 import org.example.weatherforecast.model.open_meteo_api.ResultsB;
 import org.example.weatherforecast.model.open_meteo_api.ResultsWeather;
+import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,11 +12,17 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.stream.Collectors;
 
+@Service
 public class MeteoService {
+
+    private GeoService geoService;
+
+    public MeteoService(GeoService geoService) {
+        this.geoService = geoService;
+    }
+
     public ResultsWeather searchWeather(String city) throws IOException {
 
-
-        GeoService geoService = new GeoService();
         ResultsB resultsB = geoService.getCoordinates(city);
         this.cityFormatted = resultsB.getName();
         double latitude = resultsB.getLatitude();

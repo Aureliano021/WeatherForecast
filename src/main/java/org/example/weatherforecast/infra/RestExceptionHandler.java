@@ -11,7 +11,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({CityNotFoundException.class})
-    private ResponseEntity<?> cityNotFoundHandler(CityNotFoundException exception) {
+    public ResponseEntity<?> cityNotFoundHandler(CityNotFoundException exception) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("City not Found");
     }
 }

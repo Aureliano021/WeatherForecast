@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import org.example.weatherforecast.exeptions.CityNotFoundException;
 import org.example.weatherforecast.model.open_meteo_api.Results;
 import org.example.weatherforecast.model.open_meteo_api.ResultsB;
+import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.stream.Collectors;
 
+@Service
 public class GeoService {
 
     public ResultsB getCoordinates(String city) throws IOException {
