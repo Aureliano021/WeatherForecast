@@ -45,7 +45,7 @@ public class AuthenticationController {
         System.out.println("DEBUG: Entrou no método register com email: " + data.email());
         if(this.userRepository.findByEmail(data.email()) != null) return ResponseEntity.badRequest().build();
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
-        User newUser =new User(data.name(), data.email(), encryptedPassword, data.role());
+        User newUser = new User(data.name(), data.email(), encryptedPassword, data.role());
 
         this.userRepository.save(newUser);
 
