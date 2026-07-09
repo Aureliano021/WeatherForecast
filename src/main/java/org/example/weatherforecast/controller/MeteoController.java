@@ -1,10 +1,10 @@
 package org.example.weatherforecast.controller;
 
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.example.weatherforecast.client.GeoService;
 import org.example.weatherforecast.client.MeteoService;
 import org.example.weatherforecast.domain.Favorite.Favorite;
-import org.example.weatherforecast.domain.Favorite.FavoriteDTO;
 import org.example.weatherforecast.domain.Favorite.FavoriteRequestDTO;
 import org.example.weatherforecast.domain.user.User;
 import org.example.weatherforecast.model.open_meteo_api.ResultsB;
@@ -22,6 +22,7 @@ import java.util.Objects;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api")
+@AllArgsConstructor
 public class MeteoController {
 
     private final WeatherService weatherService;
@@ -29,21 +30,6 @@ public class MeteoController {
     private final SearchHistoryService searchHistoryService;
     private final FavoriteService favoriteService;
     private final FavoriteRepository favoriteRepository;
-
-    public MeteoController(
-            WeatherService weatherService,
-            MeteoService meteoService,
-            SearchHistoryService searchHistoryService,
-            FavoriteService favoriteService,
-            FavoriteRepository favoriteRepository
-
-            ) {
-        this.weatherService = weatherService;
-        this.meteoService = meteoService;
-        this.searchHistoryService = searchHistoryService;
-        this.favoriteService = favoriteService;
-        this.favoriteRepository = favoriteRepository;
-    }
 
     @GetMapping("/weather/raw")
     public ResponseEntity<?> getRawWeather(@RequestParam String city) throws IOException {
