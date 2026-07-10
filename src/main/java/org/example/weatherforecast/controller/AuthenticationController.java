@@ -7,7 +7,6 @@ import org.example.weatherforecast.domain.user.ResgisterDTO;
 import org.example.weatherforecast.domain.user.User;
 import org.example.weatherforecast.infra.security.TokenService;
 import org.example.weatherforecast.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

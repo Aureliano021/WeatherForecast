@@ -1,7 +1,6 @@
 package org.example.weatherforecast.client;
 
 import com.google.gson.Gson;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.example.weatherforecast.model.open_meteo_api.ResultsB;
