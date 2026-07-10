@@ -11,13 +11,16 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.stream.Collectors;
 
 @Service
 public class GeoService {
 
     public ResultsB getCoordinates(String city) throws IOException {
-        String correctCity = city.replace(" ", "+");
+
+        String correctCity = URLEncoder.encode(city, StandardCharsets.UTF_8);
         String http = "https://geocoding-api.open-meteo.com/v1/search?name="+ correctCity +"&count=1&language=pt&format=json";
         URL url = new URL(http);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();

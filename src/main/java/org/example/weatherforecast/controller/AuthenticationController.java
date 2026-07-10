@@ -1,5 +1,6 @@
 package org.example.weatherforecast.controller;
 
+import lombok.AllArgsConstructor;
 import org.example.weatherforecast.domain.user.AuthenticationDTO;
 import org.example.weatherforecast.domain.user.LoginReponseDTO;
 import org.example.weatherforecast.domain.user.ResgisterDTO;
@@ -17,15 +18,12 @@ import jakarta.validation.Valid;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/auth")
+@AllArgsConstructor
 public class AuthenticationController {
 
-    @Autowired
+
     private AuthenticationManager authenticationManager;
-
-    @Autowired
     private UserRepository userRepository;
-
-    @Autowired
     private TokenService tokenService;
 
     @PostMapping("/login")
