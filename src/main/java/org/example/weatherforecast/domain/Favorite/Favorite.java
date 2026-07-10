@@ -7,7 +7,7 @@ import org.example.weatherforecast.domain.user.User;
 import org.hibernate.annotations.CurrentTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
+
 
 
 @Table(name = "favorite_cities")

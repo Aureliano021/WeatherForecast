@@ -1,7 +1,7 @@
 package org.example.weatherforecast.controller;
 
 import lombok.AllArgsConstructor;
-import org.example.weatherforecast.domain.user.ResgisterDTO;
+import org.example.weatherforecast.domain.user.RegisterDTO;
 import org.example.weatherforecast.domain.user.User;
 import org.example.weatherforecast.domain.user.UserRole;
 import org.example.weatherforecast.repositories.UserRepository;
@@ -37,7 +37,7 @@ class AuthenticationControllerTest {
     @Test
     @Transactional
     void registerOk() throws Exception {
-        ResgisterDTO user = new ResgisterDTO("aure", "teste@teste.com", "12345678", UserRole.USER);
+        RegisterDTO user = new RegisterDTO("aure", "teste@teste.com", "12345678", UserRole.USER);
         mockMvc.perform(post("/auth/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(user)))

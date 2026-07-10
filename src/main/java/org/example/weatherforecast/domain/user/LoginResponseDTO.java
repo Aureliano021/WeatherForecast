@@ -1,4 +1,4 @@
 package org.example.weatherforecast.domain.user;
 
-public record LoginReponseDTO(String token) {
+public record LoginResponseDTO(String token) {
 }

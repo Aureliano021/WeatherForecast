@@ -1,18 +1,16 @@
 package org.example.weatherforecast.model;
 
-import org.example.weatherforecast.client.GeoService;
-import org.example.weatherforecast.client.MeteoService;
+import lombok.Getter;
 import org.example.weatherforecast.model.open_meteo_api.ResultsWeather;
 
-import java.io.IOException;
-
+@Getter
 public class WeatherResponse {
-    private String city;
-    private double temperature;
-    private double actualRain;
-    private float rainProbability;
+    private final String city;
+    private final double temperature;
+    private final double actualRain;
+    private final float rainProbability;
 
-    public WeatherResponse(String city, ResultsWeather results) throws IOException {
+    public WeatherResponse(String city, ResultsWeather results) {
         this.city = city;
         this.temperature = results.getCurrent().getTemperature_2m();
         this.actualRain = results.getCurrent().getRain();
@@ -22,19 +20,4 @@ public class WeatherResponse {
                 .orElse(0.0) * 100.0) / 100.0f;
     }
 
-    public String getCity() {
-        return city;
-    }
-
-    public double getTemperature() {
-        return temperature;
-    }
-
-    public double getActualRain() {
-        return actualRain;
-    }
-
-    public float getRainProbability() {
-        return rainProbability;
-    }
 }

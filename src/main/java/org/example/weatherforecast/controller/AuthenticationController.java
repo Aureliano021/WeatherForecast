@@ -2,8 +2,8 @@ package org.example.weatherforecast.controller;
 
 import lombok.AllArgsConstructor;
 import org.example.weatherforecast.domain.user.AuthenticationDTO;
-import org.example.weatherforecast.domain.user.LoginReponseDTO;
-import org.example.weatherforecast.domain.user.ResgisterDTO;
+import org.example.weatherforecast.domain.user.LoginResponseDTO;
+import org.example.weatherforecast.domain.user.RegisterDTO;
 import org.example.weatherforecast.domain.user.User;
 import org.example.weatherforecast.infra.security.TokenService;
 import org.example.weatherforecast.repositories.UserRepository;
@@ -32,11 +32,11 @@ public class AuthenticationController {
 
         var token = tokenService.generateToken(((User) auth.getPrincipal()));
 
-        return ResponseEntity.ok(new LoginReponseDTO(token));
+        return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody @Valid ResgisterDTO data) {
+    public ResponseEntity<?> register(@RequestBody @Valid RegisterDTO data) {
         System.out.println("DEBUG: Entrou no método register com email: " + data.email());
         if(this.userRepository.findByEmail(data.email()) != null) return ResponseEntity.badRequest().build();
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
