@@ -6,15 +6,18 @@ import org.example.weatherforecast.domain.Favorite.Favorite;
 import org.example.weatherforecast.domain.Favorite.FavoriteDTO;
 import org.example.weatherforecast.domain.Favorite.FavoriteRequestDTO;
 import org.example.weatherforecast.domain.user.User;
+import org.example.weatherforecast.exeptions.FavoriteNotFoundExeption;
 import org.example.weatherforecast.model.open_meteo_api.ResultsB;
 import org.example.weatherforecast.repositories.FavoriteRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -46,15 +49,17 @@ public class FavoriteService {
                 cityName.cityName()
         ).getName();
 
-        Favorite favorite = new Favorite(user, cityNameFormatted);
+        Optional<Favorite> favorite = favoriteRepository.findFavoriteByUserIdAndCityName(user, cityNameFormatted);
 
-        favoriteRepository.delete(favorite);
+        if (favorite.isEmpty()) throw new FavoriteNotFoundExeption();
+
+        favoriteRepository.delete(favorite.get());
 
     }
 
     private final FavoriteRepository favoriteRepository;
 
-    public ResponseEntity<?> getFavorite() {
+    public ResponseEntity<List<FavoriteDTO>> getFavorite() {
         User user = ((User) Objects.requireNonNull(SecurityContextHolder
                         .getContext()
                         .getAuthentication())
